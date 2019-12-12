@@ -1,0 +1,28 @@
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  host:
+    from_secret: host
+  user:
+    from_secret: user
+  password:
+    from_secret: password
+
+steps:
+  - name: build
+    commands:
+      - docker build -t weekly-report .
+  - name: run
+    commands:
+      - mkdir -p /home/muxiu1997/docker_projects/weekly_report_golang/
+      - cp -f ./docker-compose.yml /home/muxiu1997/docker_projects/weekly_report_golang/docker-compose.yml
+      - cd /home/muxiu1997/docker_projects/weekly_report_golang
+      - docker-compose up -d
+    depends_on:
+      - build
+
+trigger:
+  branch:
+  - master
