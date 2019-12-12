@@ -3,11 +3,10 @@ package scheduler
 import (
 	"github.com/robfig/cron/v3"
 	"time"
-	"weekly_report_golang/setting"
 )
 
 func Run() {
-	tz, err := time.LoadLocation(setting.TimeZone)
+	tz, err := time.LoadLocation("Local")
 	if err != nil {
 		panic(err)
 	}

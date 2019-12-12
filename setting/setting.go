@@ -18,7 +18,6 @@ var (
 	MailToName      = getEnv("MAIL_TO_NAME", "陈艳男")
 	MailUser        = getEnv("MAIL_USER", "zoukf@zparkhr.com.cn")
 	MailPass        = getEnv("MAIL_PASS", "")
-	TimeZone        = getEnv("TIME_ZONE", "Asia/Shanghai")
 )
 
 func getEnv(key, defaultValue string) (value string) {
