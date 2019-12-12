@@ -1,0 +1,6 @@
+.idea/
+
+*.docx
+!template.docx
+
+data/

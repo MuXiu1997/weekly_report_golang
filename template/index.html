@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>项目部周报</title>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+  <script src="https://cdn.bootcss.com/element-ui/2.12.0/index.js"></script>
+  <link href="https://cdn.bootcss.com/element-ui/2.12.0/theme-chalk/index.css" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+  <el-card style="width: 800px;margin: 0 auto">
+    <el-form ref="form" :model="works" label-width="200px">
+      <el-form-item v-for="k in keys" :label="labels[k]">
+        <el-input
+            v-model="works[k]"
+            clearable
+        ></el-input>
+      </el-form-item>
+    </el-form>
+    <div style="text-align: center">
+      <el-button type="primary" @click="submit">更新</el-button>
+      <el-button @click="getReport">取消</el-button>
+    </div>
+  </el-card>
+</div>
+</body>
+<script>
+  new Vue({
+    el: "#app",
+    data() {
+      return {
+        labels: {},
+        works: {},
+        keys: []
+      }
+    },
+    created() {
+      this.getReport()
+    },
+    methods: {
+      getReport() {
+        axios.get("/report")
+            .then(res => {
+              this.labels = res.data["labels"];
+              this.works = res.data["works"];
+              this.keys = res.data["keys"]
+            })
+      },
+      submit() {
+        axios.patch("/report", {works: this.works})
+            .then(res => {
+              if (res.data["msg"] === "ok"){
+                this.$notify.success({
+                  title: "成功",
+                  message: "更新数据成功"
+                })
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              this.$notify.error({
+                  title: "错误",
+                  message: "更新数据失败"
+                })
+            })
+      }
+    }
+  })
+</script>
+</html>
