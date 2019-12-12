@@ -8,7 +8,7 @@ import (
 func main() {
 	scheduler.Run()
 	r := router.Router
-	if err := r.Run("0.0.0.0:80"); err != nil {
+	if err := r.Run("0.0.0.0:8080"); err != nil {
 		panic(err)
 	}
 }

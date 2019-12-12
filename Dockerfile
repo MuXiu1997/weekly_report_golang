@@ -27,6 +27,6 @@ COPY --from=0  --chown=app:app /tmp/app/main /tmp/app/template.docx ./
 
 COPY --from=0  --chown=app:app /tmp/app/template/ ./template/
 
-EXPOSE 80
+EXPOSE 8080
 
 CMD ["./main"]
