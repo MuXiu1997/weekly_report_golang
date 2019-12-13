@@ -13,7 +13,11 @@ server:
 steps:
   - name: build
     commands:
-      - docker build -t weekly-report .
+      - mkdir -p ~/.docker/
+      - 'echo "{" > ~/.docker/config.json'
+      - 'echo "    \"experimental\": \"enabled\"" >> ~/.docker/config.json'
+      - 'echo "}" >> ~/.docker/config.json'
+      - docker buildx build -t weekly-report .
   - name: run
     commands:
       - mkdir -p /home/muxiu1997/docker_projects/weekly_report_golang/
@@ -25,4 +29,4 @@ steps:
 
 trigger:
   branch:
-  - master
+    - master
